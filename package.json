@@ -1,0 +1,38 @@
+{
+  "name": "Steam",
+  "version": "1.0.0",
+  "description": "A small web page consisting of tools for Steam",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Rob--/Steam-Utilities"
+  },
+  "keywords": [
+    "steam",
+    "tools",
+    "steam",
+    "tools",
+    "inventory",
+    "steam",
+    "inventory",
+    "csgo",
+    "counter",
+    "strike",
+    "cs",
+    "counter",
+    "strike"
+  ],
+  "author": "Rob",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Rob--/Steam-Utilities/issues"
+  },
+  "homepage": "https://github.com/Rob--/Steam-Utilities",
+  "dependencies": {
+    "angular": "^1.4.3",
+    "request": "^2.58.0"
+  }
+}
