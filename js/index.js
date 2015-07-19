@@ -23,7 +23,7 @@ var app = angular.module('inventoryLoader', []);
 app.controller('inventoryCtrl', ['$scope', '$http', function($scope, $http) {
     $scope.loadInventory = function(){
         evaluateUsername($scope.username);
-        $http({method: "JSONP", url: "http://2.120.163.83:8080/api/v1/getInventory?sid=76561198090927398"}).success(function(data, status) {
+        $http({method: "JSONP", url: "http://2.120.163.83:8080/api/v1/getInventory", data: {sid: "76561198090927398"}}).success(function(data, status) {
             console.log(data)
             console.log(status)
         }).error(function(data, status) {
