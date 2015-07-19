@@ -15,11 +15,14 @@ function getInventory(suffix){
             console.log(body)
         }
     });*/
-    $http.jsonp("http://2.120.163.83:8080/api/v1/getInventory").success(function(data){
-        console.log(data)
-    }).error(function(){
-        console.log("error")
-    })
+    $http({method: "JSONP", url: "http://2.120.163.83:8080/api/v1/getInventory"})
+        .success(function(data, status) {
+            console.log(data)
+            console.log(status)
+        }).error(function(data, status) {
+            console.log(data)
+            console.log(status)
+        });
 }
 
 var app = angular.module('inventoryLoader', []);
