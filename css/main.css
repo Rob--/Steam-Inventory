@@ -72,6 +72,6 @@ input .valid {
 .animation.ng-leave.ng-leave-active {
   opacity: 0;
 }
-#column-size-dropdown {
+.dropdown-button {
   float: left;
 }
