@@ -14,11 +14,12 @@ app.controller('inventoryCtrl', ['$scope', '$http', function($scope, $http) {
         .success(function(data){
             if(JSON.parse(data).success){
                 $scope.error = true;
+                console.log("Error fetching inventory, reason: " + JSON.parse(data).reason);
             } else {
                 $scope.items = data;
+                console.log("Successfully fetched inventory for " + $scope.username);
             }
             $scope.loading = false;
-            console.log("Successfully fetched inventory for " + $scope.username);
         }).error(function(){
             $scope.loading = false;
             $scope.error = true;
