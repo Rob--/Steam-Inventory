@@ -14,9 +14,9 @@ body
     width 100%
 
 .valign
-    position relative;
-    top 50%;
-    transform translateY(-50%);
+    position relative
+    top 50%
+    transform translateY(-50%)
 
 .load
     margin-top
@@ -57,10 +57,17 @@ input .valid
 .knife
     border 1px solid #8650ac
 
-fade-in.ng-enter,
-.fade-in.ng-leave,
-.fade-in.ng-move
-    -webkit-transition 1s linear all
-    -moz-transition 1s linear all
-    -o-transition 1s linear all
-    transition 1s linear all
+.animation
+    -webkit-transition 1s
+
+.animation.ng-enter
+    opacity 0
+
+.animation.ng-leave
+    opacity 1
+
+.animation.ng-enter.ng-enter-active
+    opacity 1
+
+.animation.ng-leave.ng-leave-active
+    opacity 0
