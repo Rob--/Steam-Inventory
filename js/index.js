@@ -1,11 +1,11 @@
 require('angular');
 
-var app = angular.module('inventoryLoader', []);
+var app = angular.module('inventoryLoader', ['ngFx', 'ngAnimate']);
 
 app.controller('inventoryCtrl', ['$scope', '$http', function($scope, $http) {
     $scope.items = [];
     $scope.columnSize = 2;
-    $scope.loading = true;
+    $scope.loading = false;
 
     $scope.loadInventory = function(){
         $scope.loading = true;

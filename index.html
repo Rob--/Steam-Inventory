@@ -45,7 +45,7 @@
                 <div ng-if="loading" class="col s6 offset-s3 progress">
                     <div class="indeterminate"></div>
                 </div>
-                <div class="col s{{column_size}}" ng-repeat="item in items track by $index">
+                <div class="col s{{column_size}} fx-fade-left" ng-repeat="item in items track by $index">
                     <div ng-class="item.classes" class="card">
                         <div class="card-image">
                             <img class="item" src="https://steamcommunity-a.akamaihd.net/economy/image/{{item.icon_url}}">
