@@ -27,6 +27,7 @@
             <h1 class="project-name header">CS:GO Inventory Loader</h1>
             <hr>
             <div class="row">
+                {{username}}
                 <div class="col s8 offset-s2">
                     <div class="row">
                         <div class="input-field col s8">
@@ -52,6 +53,14 @@
                 <h4 ng-if="loading">Loading {{username}}'s inventory...</h4>
                 <div ng-if="loading" class="col s6 offset-s3 progress">
                     <div class="indeterminate"></div>
+                </div>
+                <div ng-if="error">
+                    <h4>Error fetching inventory...</h4>
+                    <p>This error could've occured because of the following reasons:</p>
+                    <ul>
+                        <li>Steam Community is down</li>
+                        <li><i>{{username}}</i> could have their inventory set to private.</li>
+                    </ul>
                 </div>
                 <div class="col s{{columnSize}} animation" ng-repeat="item in items track by $index">
                     <div ng-class="item.classes" class="card">
