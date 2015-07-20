@@ -45,19 +45,20 @@ input .valid {
 .card {
   height: auto;
   margin-bottom: 0;
+  border: 2px solid #fff;
 }
 .card-image {
   padding: 5px;
   box-shadow: inset 0px 0px 20px -9px #000;
 }
 .stattrak {
-  border: 1px solid #cf6a32;
+  border: 2px solid #cf6a32;
 }
 .souvenir {
-  border: 1px solid #ffd700;
+  border: 2px solid #ffd700;
 }
 .knife {
-  border: 1px solid #8650ac;
+  border: 2px solid #8650ac;
 }
 .animation {
   -webkit-transition: 1s;
