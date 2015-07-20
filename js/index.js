@@ -10,6 +10,7 @@ app.controller('inventoryCtrl', ['$scope', '$http', function($scope, $http) {
 
     $scope.loadInventory = function(){
         $scope.loading = true;
+        $scope.items = [];
         $http.jsonp("http://2.120.163.83:8080/api/v1/getInventory?username=" + encodeURIComponent($scope.username) + "&callback=JSON_CALLBACK")
         .success(function(data){
             if(data.success){
