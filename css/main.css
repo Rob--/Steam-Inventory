@@ -37,3 +37,19 @@ input .valid {
   padding-top: 1rem !important;
   padding-bottom: 5rem !important;
 }
+.item {
+  height: 85%;
+  width: 85%;
+}
+.card {
+  height: 100px;
+}
+.stattrak {
+  border: 1px solid #cf6a32;
+}
+.souvenir {
+  border: 1px solid #ffd700;
+}
+.knife {
+  border: 1px solid #8650ac;
+}
