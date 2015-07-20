@@ -1,6 +1,6 @@
 require('angular');
 
-var app = angular.module('inventoryLoader', ['ngFx']);
+var app = angular.module('inventoryLoader', ['ngAnimate', 'fx.animations']);
 
 app.controller('inventoryCtrl', ['$scope', '$http', function($scope, $http) {
     $scope.items = [];
