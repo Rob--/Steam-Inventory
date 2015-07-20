@@ -5,7 +5,7 @@ var app = angular.module('inventoryLoader', []);
 app.controller('inventoryCtrl', ['$scope', '$http', function($scope, $http) {
     $scope.items = [];
     $scope.columnSize = 2;
-    $scope.loading = false;
+    $scope.loading = true;
 
     $scope.loadInventory = function(){
         $scope.loading = true;
