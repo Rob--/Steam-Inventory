@@ -16,7 +16,7 @@ app.controller('inventoryCtrl', ['$scope', '$http', function($scope, $http) {
                 $scope.error = true;
                 console.log("Error fetching inventory, reason: " + JSON.parse(data).reason);
             } else {
-                $scope.items = data;
+                $scope.items = JSON.parse(data).items;
                 console.log("Successfully fetched inventory for " + $scope.username);
             }
             $scope.loading = false;
