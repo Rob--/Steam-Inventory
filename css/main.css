@@ -11,6 +11,7 @@ body {
   background: #fff;
   margin-top: 15px;
   padding: 10px;
+  width: 100%;
 }
 .valign {
   position: relative;
@@ -42,7 +43,7 @@ input .valid {
   width: 85%;
 }
 .card {
-  height: 100px;
+  height: auto;
 }
 .stattrak {
   border: 1px solid #cf6a32;
