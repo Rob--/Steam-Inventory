@@ -39,12 +39,12 @@
                     </div>
                 </div>
                 <div class="col s3 offset-s2">
-                    <ul id="column-size" class="dropdown-content">
-                        <li><a href="#!">Small</a></li>
-                        <li><a href="#!">Medium</a></li>
-                        <li><a href="#!">Large</a></li>
+                    <ul id="column-size-dropdown" class="dropdown-content">
+                        <li><a ng-click="columnSize = 1">Small</a></li>
+                        <li><a ng-click="columnSize = 2">Medium</a></li>
+                        <li><a ng-click="columnSize = 3">Large</a></li>
                     </ul>
-                    <a class="btn dropdown-button" href="#!" data-activates="column-size">Item Sizes<i class="mdi-navigation-arrow-drop-down right"></i></a>
+                    <a class="btn dropdown-button" href="#!" data-activates="column-size-dropdown">Item Sizes<i class="mdi-navigation-arrow-drop-down right"></i></a>
                 </div>
             </div>
             <hr>
@@ -64,7 +64,7 @@
                 <div class="col s{{columnSize}} animation" ng-repeat="item in items track by $index">
                     <div ng-class="item.classes" class="card">
                         <div class="card-image">
-                            <img class="item" src="https://steamcommunity-a.akamaihd.net/economy/image/{{item.icon_url}}">
+                            <img class="item" src="https://steamcommunity-a.akamaihd.net/economy/image/{{item.icon_url}}/172fx130f">
                         </div>
                     </div>
                 </div>
