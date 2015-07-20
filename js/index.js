@@ -13,7 +13,7 @@ app.controller('inventoryCtrl', ['$scope', '$http', function($scope, $http) {
         .success(function(data){
             $scope.loading = false;
             $scope.items = data;
-            console.log("Successfully fteched inventory for " + $scope.username);
+            console.log("Successfully feteched inventory for " + $scope.username);
         }).error(function(){
             console.log("Error fetching inventory.")
         });
