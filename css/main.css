@@ -39,8 +39,8 @@ input .valid {
   padding-bottom: 5rem !important;
 }
 .item {
-  height: auto;
-  width: auto;
+  height: auto !important;
+  width: auto !important;
 }
 .card {
   height: auto;
