@@ -44,6 +44,7 @@ input .valid {
 }
 .card {
   height: auto;
+  margin-bottom: 0;
 }
 .card-image {
   padding: 5px;
