@@ -54,12 +54,9 @@
                     <div class="indeterminate"></div>
                 </div>
                 <div ng-if="error">
+                    <br>
                     <h4>Error fetching inventory...</h4>
-                    <p>This error could've occured because of the following reasons:</p>
-                    <ul>
-                        <li>Steam Community is down</li>
-                        <li><i>{{username}}</i> could have their inventory set to private.</li>
-                    </ul>
+                    <p>This error could've occured because<br>Steam Community is down<br>or<br><i>{{username}}</i> could have their inventory set to private
                 </div>
                 <div class="col s{{columnSize}} animation" ng-repeat="item in items track by $index">
                     <div ng-style="{'box-shadow': '0px 0px 5px 2px #' + item.rarity.colour}" ng-class="item.classes" class="card">

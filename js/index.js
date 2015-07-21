@@ -4,7 +4,7 @@ var app = angular.module('inventoryLoader', ['ngAnimate']);
 
 app.controller('inventoryCtrl', ['$scope', '$http', function($scope, $http) {
     $scope.items = [];
-    $scope.columnSize = 2;
+    $scope.columnSize = 1;
     $scope.loading = false;
     $scope.error = false;
 
@@ -17,6 +17,7 @@ app.controller('inventoryCtrl', ['$scope', '$http', function($scope, $http) {
                 $scope.error = true;
                 console.log("Error fetching inventory, reason: " + data.reason);
             } else {
+                $scope.error = false;
                 $scope.items = data.items;
                 console.log("Successfully fetched inventory for " + $scope.username);
             }
