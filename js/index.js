@@ -14,12 +14,12 @@ app.controller('inventoryCtrl', ['$scope', '$http', function($scope, $http) {
         $http.jsonp("http://2.120.163.83:8080/api/v1/getInventory?username=" + encodeURIComponent($scope.username) + "&callback=JSON_CALLBACK")
         .success(function(data){
             if(data.success){
-                $scope.error = true;
-                console.log("Error fetching inventory, reason: " + data.reason);
-            } else {
                 $scope.error = false;
                 $scope.items = data.items;
                 console.log("Successfully fetched inventory for " + $scope.username);
+            } else {
+                $scope.error = true;
+                console.log("Error fetching inventory, reason: " + data.reason);
             }
             $scope.loading = false;
         }).error(function(){
