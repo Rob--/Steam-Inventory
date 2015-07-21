@@ -9,7 +9,7 @@ var cheerio = require("cheerio");
 
 app.listen(Number(process.env.PORT) || 8080, "0.0.0.0")
 
-fs.readFile('../config.json', 'utf8', function (err, data) {
+fs.readFile('config.json', 'utf8', function (err, data) {
   if (err) throw err;
   steamapi = new steamweb({ apiKey: JSON.parse(data).apikey, format: "json" });
   loginBot(JSON.parse(data).login);
@@ -25,19 +25,24 @@ function createItemObject(item){
         icon_url_large: item.icon_url_large,
         name: item.name,
         name_colour: item.name_color,
+        inspect: item.actions != undefined ? item.actions[0].link : "",
         tradeable: item.tradable,
         marketable: item.marketable,
-        inspect: item.actions[0].link,
-        stickers: {text: "", images: []}
+        stickers: {text: "", images: []},
+        classes: []
     }
 
     for(var j = 0; j < item.tags.length; j++){
-        if(item.tags[j].category == "Type") data.type = item.tags[j].name;
-        if(item.tags[j].category == "Weapon") data.weapon = item.tags[j].name;
-        if(item.tags[j].category == "ItemSet") data.collection = item.tags[j].name;
-        if(item.tags[j].category == "Rarity") data.rarity = { rarity: item.tags[j].name, colour: item.tags[j].color};
-        if(item.tags[j].category == "Exterior") data.exterior = item.tags[j].name;
+        if(item.tags[j].category == "Type"      ) data.type         = item.tags[j].name;
+        if(item.tags[j].category == "Weapon"    ) data.weapon       = item.tags[j].name;
+        if(item.tags[j].category == "ItemSet"   ) data.collection   = item.tags[j].name;
+        if(item.tags[j].category == "Rarity"    ) data.rarity       = { rarity: item.tags[j].name, colour: item.tags[j].color};
+        if(item.tags[j].category == "Exterior"  ) data.exterior     = item.tags[j].name;
     }
+
+    if(data.type.toLowerCase().indexOf("knife") > -1) data.classes.push("knife")
+    if(data.name.toLowerCase().indexOf("souvenir") > -1) data.classes.push("souvenir")
+    if(data.name.toLowerCase().indexOf("stattrak") > -1) data.classes.push("stattrak")
 
     for(var j = 0; j < item.descriptions.length; j++){
         if(item.descriptions[j].value.indexOf("Sticker Details") == -1) continue;
@@ -53,25 +58,26 @@ function createItemObject(item){
 }
 
 app.get("/api/v1/getInventory", function(req, res){
-    console.log("OOHOHO")
     res.setHeader('Content-Type', 'application/json');
 
-    if(req.query.sid == undefined) return res.end(JSON.stringify({success: false, reason: "sid not defined"}, null, 3));
+    if(req.query.username == undefined) return res.end(req.query.callback + "(" + JSON.stringify({success: false, reason: "username not defined"}, null, 3) + ")");
+
+    if(Number(req.query.username)) username = req.query.username
 
     if(offers){
         offers.loadPartnerInventory({
             appId: 730,
             contextId: 2,
-            partnerSteamId: "76561198090927398"
+            partnerSteamId: username
         }, function(err, inventory) {
-            if(err) return res.end(JSON.stringify({success: false, reason: err}, null, 3));
+            if(err) return res.end(req.query.callback + "(" + JSON.stringify({success: false, reason: err}, null, 3) + ")");
 
             var items = [];
             for(var i = 0; i < inventory.length; i++){
                 items.push(createItemObject(inventory[i]));
             }
 
-            res.end(JSON.stringify(items, null, 3))
+            res.end(req.query.callback + "(" + JSON.stringify({items : items}, null, 3) + ")")
         })
 
         /*steamapi.getPlayerItems({
@@ -96,7 +102,7 @@ app.get("/api/v1/getInventory", function(req, res){
 function loginBot(details){
     var client = new Steam.SteamClient()
 
-    if(fs.existsSync('../sentry.' + details.accountName + '.hash')){ details.shaSentryfile = fs.readFileSync('../sentry.' + details.accountName + '.hash'); }
+    if(fs.existsSync('sentry.' + details.accountName + '.hash')){ details.shaSentryfile = fs.readFileSync('sentry.' + details.accountName + '.hash'); }
 
     client.logOn(details);
     client.on('debug', console.log);
@@ -114,5 +120,5 @@ function loginBot(details){
         });
     });
 
-    client.on('sentry', function(data) { fs.writeFileSync('../sentry.' + details.accountName + '.hash', data); });
+    client.on('sentry', function(data) { fs.writeFileSync('sentry.' + details.accountName + '.hash', data); });
 }
