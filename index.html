@@ -57,11 +57,13 @@
                 <div ng-if="loading" class="col s6 offset-s3 progress">
                     <div class="indeterminate"></div>
                 </div>
+                <br ng-if="loading">
                 <div ng-if="error">
                     <br>
                     <h4>Error fetching inventory...</h4>
                     <p>This error could've occured because<br>Steam Community is down<br>or<br><i>{{username}}</i> could have their inventory set to private
                 </div>
+                <br ng-if="error">
                 <div class="col s{{columnSize}} animation" ng-repeat="item in items track by $index">
                     <div ng-class="item.classes" class="card">
                         <div class="card-image">
