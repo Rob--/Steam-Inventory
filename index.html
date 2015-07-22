@@ -22,7 +22,7 @@
 </head>
 <body ng-app="inventoryLoader">
     <section ng-controller="inventoryCtrl" class="page-header">
-        <div class="container box shadow">
+        <div ng-style="{'background-color': transparent ? 'rgba(255, 255, 255, 0.25)' : 'rgba(255, 255, 255, 1)'" class="container box shadow">
             <br>
             <h1 class="project-name header">CS:GO Inventory Loader</h1>
             <hr>
@@ -45,6 +45,10 @@
                         <li><a ng-click="columnSize = 3">Large</a></li>
                     </ul>
                     <a class="btn dropdown-button" href="#!" data-activates="column-size-dropdown">Item Sizes<i class="mdi-navigation-arrow-drop-down right"></i></a>
+                </div>
+                <div class="col s4">
+                    <input nd-model="transparent" type="checkbox" class="filled-in" id="filled-in-box" checked="checked" />
+                    <label for="filled-in-box">Transparent background</label>
                 </div>
             </div>
             <hr>
