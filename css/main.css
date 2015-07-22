@@ -99,7 +99,7 @@ input .valid {
   left: 0;
   font-family: Lato;
   text-align: center;
-  color: #424242;
+  color: #000;
   width: 100%;
-  opacity: 0.3;
+  opacity: 0.8;
 }
