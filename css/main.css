@@ -12,6 +12,9 @@ body {
   margin-top: 15px;
   padding: 10px;
   width: 100%;
+  transition: 1s;
+  -moz-transition: 1s;
+  -webkit-transition: 1s;
 }
 .valign {
   position: relative;
