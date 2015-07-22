@@ -59,10 +59,10 @@
                     <p>This error could've occured because<br>Steam Community is down<br>or<br><i>{{username}}</i> could have their inventory set to private
                 </div>
                 <div class="col s{{columnSize}} animation" ng-repeat="item in items track by $index">
-                    <div ng-style="{'box-shadow': '0px 0px 5px 2px #' + item.rarity.colour}" class="card">
-                        <div ng-class="item.classes" class="card-image">
+                    <div ng-class="item.classes" class="card">
+                        <div class="card-image">
                             <img class="item" src="https://steamcommunity-a.akamaihd.net/economy/image/{{item.icon_url}}/{{columnSize == 1 ? '85fx65f' : columnSize == 2 ? '115fx88f' : '163fx126f'}}">
-                            <p ng-style="{'font-size': columnSize == 1 ? '1rem' : columnSize == 2 ? '1.5rem' : '2rem'}" class="price">$0.00</p>
+                            <p ng-style="{'box-shadow': '0px 0px 1px 0px #' + item.rarity.colour,'background-color': item.rarity.colour, 'font-size': columnSize == 1 ? '1rem' : columnSize == 2 ? '1.5rem' : '2rem'}" class="price">$0.00</p>
                         </div>
                     </div>
                 </div>
