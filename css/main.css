@@ -59,6 +59,9 @@ input .valid {
 .knife {
   background-image: radial-gradient(#fff 50%, #8650ac 200%);
 }
+.normal {
+  background-image: radial-gradient(#fff 50%, #c8c4c4 200%);
+}
 .animation {
   -webkit-transition: 1s;
   transition: 1s;
@@ -97,4 +100,5 @@ input .valid {
   font-family: Lato;
   text-align: center;
   color: #424242;
+  width: 100%;
 }
