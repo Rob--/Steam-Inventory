@@ -52,10 +52,10 @@
                 </div>
             </div>
             <hr>
-            <div ng-if="!loading && !error && items.length" class="row info-area">
-                <p>Total: ${{total}}</p>
+            <div ng-if="!loading && !error && data.items.length" class="row info-area">
+                <p>Total: ${{data.total}} / {{data.items.length}} skins</p>
             </div>
-            <hr ng-if="!loading && !error && items.length">
+            <hr ng-if="!loading && !error && data.items.length">
             <div class="row">
                 <h4 ng-if="loading" ng-style="{'color': transparent ? '#fff' : '#9e9e9e'}" class="animation">Loading {{username}}'s inventory...</h4>
                 <div ng-if="loading" class="col s6 offset-s3 progress">
@@ -68,7 +68,7 @@
                     <p>This error could've occured because<br>Steam Community is down<br>or<br><i>{{username}}</i> could have their inventory set to private
                 </div>
                 <br ng-if="error">
-                <div class="col s{{columnSize}} animation" ng-repeat="item in items track by $index">
+                <div class="col s{{columnSize}} animation" ng-repeat="item in data.items track by $index">
                     <div ng-class="item.classes" class="card">
                         <div class="card-image">
                             <img class="item" src="https://steamcommunity-a.akamaihd.net/economy/image/{{item.icon_url}}/{{columnSize == 1 ? '85fx65f' : columnSize == 2 ? '115fx88f' : '163fx126f'}}">
