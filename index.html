@@ -52,10 +52,10 @@
                 </div>
             </div>
             <hr>
-            <div ng-if="!loading && !error && items" class="row info-area">
+            <div ng-if="!loading && !error && items.length" class="row info-area">
                 <p>Total: ${{total}}</p>
             </div>
-            <hr ng-if="!loading && !error && items">
+            <hr ng-if="!loading && !error && items.length">
             <div class="row">
                 <h4 ng-if="loading" ng-style="{'color': transparent ? '#fff' : '#9e9e9e'}" class="animation">Loading {{username}}'s inventory...</h4>
                 <div ng-if="loading" class="col s6 offset-s3 progress">
