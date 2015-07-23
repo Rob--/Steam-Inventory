@@ -6,6 +6,7 @@ var offers = new SteamTradeOffers()
 var Steam = require("steam");
 var steamapi;
 var cheerio = require("cheerio");
+var request = require("request");
 
 app.listen(Number(process.env.PORT) || 8080, "0.0.0.0")
 
@@ -29,7 +30,8 @@ function createItemObject(item){
         tradeable: item.tradable,
         marketable: item.marketable,
         stickers: {text: "", images: []},
-        classes: []
+        classes: [],
+        price: 0.00
     }
 
     for(var j = 0; j < item.tags.length; j++){
@@ -62,42 +64,66 @@ app.get("/api/v1/getInventory", function(req, res){
 
     if(req.query.username == undefined) return res.end(req.query.callback + "(" + JSON.stringify({success: false, reason: "username not defined"}, null, 3) + ")");
 
-    if(Number(req.query.username)) username = req.query.username
+    var username;
 
-    if(offers){
-        offers.loadPartnerInventory({
-            appId: 730,
-            contextId: 2,
-            partnerSteamId: username
-        }, function(err, inventory) {
-            if(err) return res.end(req.query.callback + "(" + JSON.stringify({success: false, reason: err}, null, 3) + ")");
+    if(Number(req.query.username)){
+        username = req.query.username
 
-            var items = [];
+        getInventory(req.query.username, function(response){
+            res.end(req.query.callback + "(" + JSON.stringify(response) + ")")
+        });
+    } else {
+        request('http://steamcommunity.com/id/' + req.query.username, function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                try {
+                    username = cheerio.load(body)("body > div.responsive_page_frame > div > div.responsive_page_nonlegacy_content > script").text().split("steamid")[1].split("\"")[2]
+                } catch(e) {
+                    return res.end(req.query.callback + "(" + JSON.stringify({success: false, reason: JSON.stringify(e)}, null, 3) + ")");
+                }
+
+                getInventory(username, function(response){
+                    res.end(req.query.callback + "(" + JSON.stringify(response) + ")")
+                });
+            }
+        });
+    }
+});
+
+function getInventory(username, callback){
+    if(!offers) return callback({success: false, reason: "bot not logged in"})
+
+    offers.loadPartnerInventory({
+        appId: 730,
+        contextId: 2,
+        partnerSteamId: username
+    }, function(err, inventory) {
+        if(err) return callback({success: false, reason: JSON.stringify(err)})
+
+        var items = [], total = 0;
+        for(var i = 0; i < inventory.length; i++){
+            var item = createItemObject(inventory[i]);
+            items.push(item);
+            total += item.price;
+        }
+
+        callback({success: true, items: items, total: total})
+    })
+
+    /*steamapi.getPlayerItems({
+        gameid: 730,
+        steamid: '76561198090927398',
+        callback: function(err, data) {
+            //console.log(req.get('host'))
+            //console.log(req.get('origin'))
+
+            var inventory = data.result.items, items = [];
             for(var i = 0; i < inventory.length; i++){
                 items.push(createItemObject(inventory[i]));
             }
-
-            res.end(req.query.callback + "(" + JSON.stringify({items : items}, null, 3) + ")")
-        })
-
-        /*steamapi.getPlayerItems({
-            gameid: 730,
-            steamid: '76561198090927398',
-            callback: function(err, data) {
-                //console.log(req.get('host'))
-                //console.log(req.get('origin'))
-
-                var inventory = data.result.items, items = [];
-                for(var i = 0; i < inventory.length; i++){
-                    items.push(createItemObject(inventory[i]));
-                }
-                res.end(JSON.stringify(data, null, 3));
-            }
-        });*/
-    } else {
-        return res.end(JSON.stringify({success: false, reason: "bot not logged in"}, null, 3))
-    }
-});
+            res.end(JSON.stringify(data, null, 3));
+        }
+    });*/
+}
 
 function loginBot(details){
     var client = new Steam.SteamClient()
