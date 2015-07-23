@@ -53,12 +53,12 @@
             </div>
             <hr>
             <div class="row">
-                <h4 ng-if="loading">Loading {{username}}'s inventory...</h4>
+                <h4 ng-if="loading" ng-style="{'color': transparent ? '#fff' : '#9e9e9e'}" class="animation">Loading {{username}}'s inventory...</h4>
                 <div ng-if="loading" class="col s6 offset-s3 progress">
                     <div class="indeterminate"></div>
                 </div>
                 <br ng-if="loading">
-                <div ng-if="error">
+                <div ng-if="error" ng-style="{'color': transparent ? '#fff' : '#9e9e9e'}" class="animation">
                     <br>
                     <h4>Error fetching inventory...</h4>
                     <p>This error could've occured because<br>Steam Community is down<br>or<br><i>{{username}}</i> could have their inventory set to private
