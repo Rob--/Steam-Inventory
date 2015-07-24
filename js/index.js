@@ -4,37 +4,37 @@ var app = angular.module('inventoryLoader', ['ngAnimate']);
 
 app.controller('inventoryCtrl', ['$scope', '$http', function($scope, $http) {
     $scope.currencies = [
-        ['USD', '$']
-        ['GBP', '£']
-        ['EUR', '€']
-        ['AUD', '$']
-        ['BGN', 'лв']
-        ['BRL', 'R$']
-        ['CAD', '$']
-        ['CHF', 'CHF']
-        ['CNY', '¥']
-        ['CZK', 'Kč']
-        ['DKK', 'kr']
-        ['HKD', '$']
-        ['HRK', 'kn']
-        ['HUF', 'Ft']
-        ['IDR', 'Rp']
-        ['ILS', '₪']
-        ['INR', '₹']
-        ['JPY', '¥']
-        ['KRW', '₩']
-        ['MXN', '$']
-        ['MYR', 'RM']
-        ['NOK', 'kr']
-        ['NZD', '$']
-        ['PHP', '₱']
-        ['PLN', 'zł']
-        ['RON', 'lei']
-        ['RUB', 'руб']
-        ['SEK', 'kr']
-        ['SGD', '$']
-        ['THB', '฿']
-        ['TRY', '₺']
+        ['USD', '$'],
+        ['GBP', '£'],
+        ['EUR', '€'],
+        ['AUD', '$'],
+        ['BGN', 'лв'],
+        ['BRL', 'R$'],
+        ['CAD', '$'],
+        ['CHF', 'CHF'],
+        ['CNY', '¥'],
+        ['CZK', 'Kč'],
+        ['DKK', 'kr'],
+        ['HKD', '$'],
+        ['HRK', 'kn'],
+        ['HUF', 'Ft'],
+        ['IDR', 'Rp'],
+        ['ILS', '₪'],
+        ['INR', '₹'],
+        ['JPY', '¥'],
+        ['KRW', '₩'],
+        ['MXN', '$'],
+        ['MYR', 'RM'],
+        ['NOK', 'kr'],
+        ['NZD', '$'],
+        ['PHP', '₱'],
+        ['PLN', 'zł'],
+        ['RON', 'lei'],
+        ['RUB', 'руб'],
+        ['SEK', 'kr'],
+        ['SGD', '$'],
+        ['THB', '฿'],
+        ['TRY', '₺'],
         ['ZAR', 'R']
     ];
 
@@ -65,8 +65,8 @@ app.controller('inventoryCtrl', ['$scope', '$http', function($scope, $http) {
         });
     };
 
-    $scope.updateCurrency = function(index){
-        $scope.currency.prefix = $scope.currencies[index][0];
-        $scope.currency.abbr = $scope.currencies[index][1];
+    $scope.updateCurrency = function(currency){
+        $scope.currency.prefix = $scope.currencies[currency + 1][0];
+        $scope.currency.abbr = $scope.currencies[currency + 1][1];
     }
 }]);
