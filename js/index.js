@@ -74,7 +74,7 @@ app.controller('inventoryCtrl', ['$scope', '$http', '$sce', function($scope, $ht
 .filter('currencyFilter', ['$filter','$sce',
     function ($filter, $sce) {
         return function (input, curr) {
-            return $sce.trustAsHtml(curr + " " + $filter('number')(input, 2));
+            return $sce.trustAsHtml(curr);
         }
     }]
 );
