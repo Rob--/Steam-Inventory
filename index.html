@@ -81,7 +81,7 @@
                         <li><a ng-click="updateCurrency(31)">TRY</a></li>
                         <li><a ng-click="updateCurrency(32)">ZAR</a></li>
                     </ul>
-                    <a class="btn dropdown-button" href="#!" data-activates="currency-dropdown">{{currency.abbr}}<i class="mdi-navigation-arrow-drop-down right"></i></a>
+                    <a class="btn dropdown-button" href="#!" data-activates="currency-dropdown"><span ng-bind-html="item.price | currencyFilter:currency.abbr"></span><i class="mdi-navigation-arrow-drop-down right"></i></a>
                 </div>
                 <div class="col s4">
                     <input ng-model="transparent" type="checkbox" class="filled-in" id="filled-in-box" checked="checked" />
