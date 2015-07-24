@@ -6,7 +6,7 @@ app.controller('inventoryCtrl', ['$scope', '$http', function($scope, $http) {
     $scope.currencies = [
         ['USD', '$'],
         ['GBP', '£'],
-        ['EUR', '€'],
+        ['EUR', '&euro;'],
         ['AUD', '$'],
         ['BGN', 'лв'],
         ['BRL', 'R$'],
@@ -66,7 +66,7 @@ app.controller('inventoryCtrl', ['$scope', '$http', function($scope, $http) {
     };
 
     $scope.updateCurrency = function(currency){
-        $scope.currency.prefix = $scope.currencies[currency + 1][0];
-        $scope.currency.abbr = $scope.currencies[currency + 1][1];
+        $scope.currency.prefix = $scope.currencies[currency - 1][0];
+        $scope.currency.abbr = $scope.currencies[currency - 1][1];
     }
 }]);
