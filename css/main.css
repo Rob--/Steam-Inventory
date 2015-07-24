@@ -117,5 +117,5 @@ label {
   margin: 0;
 }
 .settings-dropdown {
-  width: 20%;
+  width: 20% !important;
 }
