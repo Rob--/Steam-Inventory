@@ -1,6 +1,6 @@
 require('angular');
 
-var app = angular.module('inventoryLoader', ['ngAnimate']);
+var app = angular.module('inventoryLoader', []);
 
 app.controller('inventoryCtrl', ['$scope', '$http', '$sce', function($scope, $http, $sce) {
     $scope.currencies = [
