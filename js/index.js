@@ -2,7 +2,7 @@ require('angular');
 
 var app = angular.module('inventoryLoader', ['ngAnimate']);
 
-app.controller('inventoryCtrl', ['$scope', '$http', function($scope, $http) {
+app.controller('inventoryCtrl', ['$scope', '$http', '$sce', function($scope, $http, $sce) {
     $scope.currencies = [
         ['USD', '$'],
         ['GBP', '£'],
@@ -48,7 +48,7 @@ app.controller('inventoryCtrl', ['$scope', '$http', function($scope, $http) {
         $scope.loading = true;
         $scope.error = false;
         $scope.data = {items: [], total: 0};
-        $http.jsonp("http://2.120.163.83:8080/api/v1/getInventory?username=" + encodeURIComponent($scope.username) + "&callback=JSON_CALLBACK")
+        $http.jsonp("http://2.120.163.83:8080/api/v1/getInventory?currency=" + $scope.currency.abbr + "&username=" + encodeURIComponent($scope.username) + "&callback=JSON_CALLBACK")
         .success(function(data){
             if(data.success){
                 $scope.data = data;
@@ -69,4 +69,12 @@ app.controller('inventoryCtrl', ['$scope', '$http', function($scope, $http) {
         $scope.currency.prefix = $scope.currencies[currency - 1][0];
         $scope.currency.abbr = $scope.currencies[currency - 1][1];
     }
-}]);
+}])
+/* http://stackoverflow.com/a/25842874/2536231 */
+.filter('currencyFilter', ['$filter','$sce',
+    function ($filter, $sce) {
+        return function (input, curr) {
+            return $sce.trustAsHtml(curr + " " + $filter('number')(input, 2));
+        }
+    }]
+);

@@ -109,7 +109,7 @@
                     <div ng-class="item.classes" class="card">
                         <div class="card-image">
                             <img class="item" src="https://steamcommunity-a.akamaihd.net/economy/image/{{item.icon_url}}/{{columnSize == 1 ? '85fx65f' : columnSize == 2 ? '115fx88f' : '163fx126f'}}">
-                            <p ng-style="{'box-shadow': '0px 0px 1px 0px #' + item.rarity.colour, 'background-color': '#' + item.rarity.colour, 'font-size': columnSize == 1 ? '1rem' : columnSize == 2 ? '1.5rem' : '2rem'}" class="price">{{currencyPrefix}}{{item.price}}</p>
+                            <p ng-style="{'box-shadow': '0px 0px 1px 0px #' + item.rarity.colour, 'background-color': '#' + item.rarity.colour, 'font-size': columnSize == 1 ? '1rem' : columnSize == 2 ? '1.5rem' : '2rem'}" class="price"><span ng-bind-html="item.price | currencyFilter:currencyPrefix"></span></p>
                         </div>
                     </div>
                 </div>
