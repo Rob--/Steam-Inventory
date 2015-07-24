@@ -38,11 +38,48 @@
                         </div>
                     </div>
                 </div>
-                <div class="col s4 offset-s2">
+                <div class="col s4 offset-s2 settings-dropdown">
                     <ul id="column-size-dropdown" class="dropdown-content">
                         <li><a ng-click="columnSize = 1">Small</a></li>
                         <li><a ng-click="columnSize = 2">Medium</a></li>
                         <li><a ng-click="columnSize = 3">Large</a></li>
+                    </ul>
+                    <a class="btn dropdown-button" href="#!" data-activates="column-size-dropdown">Item Sizes<i class="mdi-navigation-arrow-drop-down right"></i></a>
+                </div>
+                <div class="col s4 settings-dropdown">
+                    <ul id="column-size-dropdown" class="dropdown-content">
+                        <li><a ng-click="updateCurrency(1)">USD</a></li>
+                        <li><a ng-click="updateCurrency(2)">GBP</a></li>
+                        <li><a ng-click="updateCurrency(3)">EUR</a></li>
+                        <li><a ng-click="updateCurrency(4)">AUD</a></li>
+                        <li><a ng-click="updateCurrency(5)">BGN</a></li>
+                        <li><a ng-click="updateCurrency(6)">BRL</a></li>
+                        <li><a ng-click="updateCurrency(7)">CAD</a></li>
+                        <li><a ng-click="updateCurrency(8)">CHF</a></li>
+                        <li><a ng-click="updateCurrency(9)">CNY</a></li>
+                        <li><a ng-click="updateCurrency(10)">CZK</a></li>
+                        <li><a ng-click="updateCurrency(11)">DKK</a></li>
+                        <li><a ng-click="updateCurrency(12)">HKD</a></li>
+                        <li><a ng-click="updateCurrency(13)">HRK</a></li>
+                        <li><a ng-click="updateCurrency(14)">HUF</a></li>
+                        <li><a ng-click="updateCurrency(15)">IDR</a></li>
+                        <li><a ng-click="updateCurrency(16)">ILS</a></li>
+                        <li><a ng-click="updateCurrency(17)">INR</a></li>
+                        <li><a ng-click="updateCurrency(18)">JPY</a></li>
+                        <li><a ng-click="updateCurrency(19)">KRW</a></li>
+                        <li><a ng-click="updateCurrency(20)">MXN</a></li>
+                        <li><a ng-click="updateCurrency(21)">MYR</a></li>
+                        <li><a ng-click="updateCurrency(22)">NOK</a></li>
+                        <li><a ng-click="updateCurrency(23)">NZD</a></li>
+                        <li><a ng-click="updateCurrency(24)">PHP</a></li>
+                        <li><a ng-click="updateCurrency(25)">PLN</a></li>
+                        <li><a ng-click="updateCurrency(26)">RON</a></li>
+                        <li><a ng-click="updateCurrency(27)">RUB</a></li>
+                        <li><a ng-click="updateCurrency(28)">SEK</a></li>
+                        <li><a ng-click="updateCurrency(29)">SGD</a></li>
+                        <li><a ng-click="updateCurrency(30)">THB</a></li>
+                        <li><a ng-click="updateCurrency(31)">TRY</a></li>
+                        <li><a ng-click="updateCurrency(32)">ZAR</a></li>
                     </ul>
                     <a class="btn dropdown-button" href="#!" data-activates="column-size-dropdown">Item Sizes<i class="mdi-navigation-arrow-drop-down right"></i></a>
                 </div>
@@ -53,7 +90,7 @@
             </div>
             <hr>
             <div ng-if="!loading && !error && data.items.length" ng-style="{'color': transparent ? '#fff' : '#9e9e9e'}" class="row info-area animation">
-                <p>Total: ${{data.total}} / {{data.items.length}} skins</p>
+                <p>Total: {{currencyPrefix}}{{data.total}} / {{data.items.length}} skins</p>
             </div>
             <hr ng-if="!loading && !error && data.items.length">
             <div class="row">
@@ -72,7 +109,7 @@
                     <div ng-class="item.classes" class="card">
                         <div class="card-image">
                             <img class="item" src="https://steamcommunity-a.akamaihd.net/economy/image/{{item.icon_url}}/{{columnSize == 1 ? '85fx65f' : columnSize == 2 ? '115fx88f' : '163fx126f'}}">
-                            <p ng-style="{'box-shadow': '0px 0px 1px 0px #' + item.rarity.colour, 'background-color': '#' + item.rarity.colour, 'font-size': columnSize == 1 ? '1rem' : columnSize == 2 ? '1.5rem' : '2rem'}" class="price">{{item.price}}</p>
+                            <p ng-style="{'box-shadow': '0px 0px 1px 0px #' + item.rarity.colour, 'background-color': '#' + item.rarity.colour, 'font-size': columnSize == 1 ? '1rem' : columnSize == 2 ? '1.5rem' : '2rem'}" class="price">{{currencyPrefix}}{{item.price}}</p>
                         </div>
                     </div>
                 </div>

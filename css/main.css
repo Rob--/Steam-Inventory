@@ -116,3 +116,6 @@ label {
   font-family: Lato, Raleway;
   margin: 0;
 }
+.settings-dropdown {
+  width: 20%;
+}
