@@ -4,37 +4,37 @@ var app = angular.module('inventoryLoader', []);
 
 app.controller('inventoryCtrl', ['$scope', '$http', '$sce', function($scope, $http, $sce) {
     $scope.currencies = [
-        ['USD', '$'],
-        ['GBP', '£'],
+        ['USD', '$dollar;'],
+        ['GBP', '&pound;'],
         ['EUR', '&euro;'],
-        ['AUD', '$'],
-        ['BGN', 'лв'],
-        ['BRL', 'R$'],
-        ['CAD', '$'],
+        ['AUD', '&dollar;'],
+        ['BGN', '$#1083;'],
+        ['BRL', 'R&dollar;'],
+        ['CAD', '&dollar;'],
         ['CHF', 'CHF'],
-        ['CNY', '¥'],
-        ['CZK', 'Kč'],
+        ['CNY', '&#165;'],
+        ['CZK', 'K&#269;'],
         ['DKK', 'kr'],
-        ['HKD', '$'],
+        ['HKD', '&dollar;'],
         ['HRK', 'kn'],
         ['HUF', 'Ft'],
         ['IDR', 'Rp'],
-        ['ILS', '₪'],
-        ['INR', '₹'],
-        ['JPY', '¥'],
-        ['KRW', '₩'],
-        ['MXN', '$'],
+        ['ILS', '&#8362;'],
+        ['INR', '&#8377;'],
+        ['JPY', '&#165;'],
+        ['KRW', '$#8361;'],
+        ['MXN', '&dollar;'],
         ['MYR', 'RM'],
         ['NOK', 'kr'],
-        ['NZD', '$'],
-        ['PHP', '₱'],
-        ['PLN', 'zł'],
+        ['NZD', '&dollar;'],
+        ['PHP', '&#8369;'],
+        ['PLN', 'z&#322;'],
         ['RON', 'lei'],
-        ['RUB', 'руб'],
+        ['RUB', 'ру&#1073;'],
         ['SEK', 'kr'],
-        ['SGD', '$'],
-        ['THB', '฿'],
-        ['TRY', '₺'],
+        ['SGD', '&dollar;'],
+        ['THB', '&#3647;'],
+        ['TRY', '&#8378;'],
         ['ZAR', 'R']
     ];
 
@@ -66,15 +66,15 @@ app.controller('inventoryCtrl', ['$scope', '$http', '$sce', function($scope, $ht
     };
 
     $scope.updateCurrency = function(currency){
-        $scope.currency.prefix = $scope.currencies[currency - 1][0];
-        $scope.currency.abbr = $scope.currencies[currency - 1][1];
+        $scope.currency.abbr = $scope.currencies[currency - 1][0];
+        $scope.currency.prefix = $scope.currencies[currency - 1][1];
     }
 }])
 /* http://stackoverflow.com/a/25842874/2536231 */
 .filter('currencyFilter', ['$filter','$sce',
     function ($filter, $sce) {
         return function (input, curr) {
-            return $sce.trustAsHtml(curr);
+            return $sce.trustAsHtml(curr + " " + input);
         }
     }]
 );
