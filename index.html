@@ -90,7 +90,7 @@
             </div>
             <hr>
             <div ng-if="!loading && !error && data.items.length" ng-style="{'color': transparent ? '#fff' : '#9e9e9e'}" class="row info-area animation">
-                <p>Total: <span ng-bind-html="currencyFilter:currency.prefix"></span>{{data.total}} / {{data.items.length}} skins</p>
+                <p>Total: <span ng-bind-html="data.total | currencyFilter:currency.prefix"></span> / {{data.items.length}} skins</p>
             </div>
             <hr ng-if="!loading && !error && data.items.length">
             <div class="row">
