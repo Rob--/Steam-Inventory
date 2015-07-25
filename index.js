@@ -16,6 +16,25 @@ fs.readFile('config.json', 'utf8', function (err, data) {
   loginBot(JSON.parse(data).login);
 });
 
+/*
+    {
+     'skin': {
+            // 0 = Factory-New
+          '0': {
+                'price' : 0.00,
+                'cache' : timestamp
+            }
+        }
+    }
+ */
+var prices = {};
+
+var wears = ["Factory New", "Minimal Wear", "Field-Tested", "Well-Worn", "Battle-Scarred"];
+var conversion = {};
+
+updateConversion();
+setTimeout(updateConversion, 43200000 /* 12 hours */);
+
 function createItemObject(item){
     var data = {
         id: item.id,
@@ -25,13 +44,13 @@ function createItemObject(item){
         icon_url: item.icon_url,
         icon_url_large: item.icon_url_large,
         name: item.name,
+        hash_name: item.market_hash_name,
         name_colour: item.name_color,
         inspect: item.actions != undefined ? item.actions[0].link : "",
         tradeable: item.tradable,
         marketable: item.marketable,
         stickers: {text: "", images: []},
-        classes: [],
-        price: 0.00
+        classes: []
     }
 
     for(var j = 0; j < item.tags.length; j++){
@@ -40,6 +59,24 @@ function createItemObject(item){
         if(item.tags[j].category == "ItemSet"   ) data.collection   = item.tags[j].name;
         if(item.tags[j].category == "Rarity"    ) data.rarity       = { rarity: item.tags[j].name, colour: item.tags[j].color};
         if(item.tags[j].category == "Exterior"  ) data.exterior     = item.tags[j].name;
+    }
+
+    if(!prices[data.name]){
+        prices[data.name] = {
+            0: {},
+            1: {},
+            2: {},
+            3: {},
+            4: {}
+        };
+    }
+
+    if(prices[data.name][wears.indexOf(data.exterior)].price == undefined){
+        getItemPrice(1, 730, data.hash_name, data.name, data.exterior);
+        data.price = "0.00";
+    } else {
+        if(Date.now() - prices[data.name][wears.indexOf(data.exterior)]['cache'] < 1200000) getItemPrice(1, 730, data.hash_name, data.name, data.exterior);
+        data.price = prices[data.name][wears.indexOf(data.exterior)]['price'];
     }
 
     if(data.type.toLowerCase().indexOf("knife") > -1) data.classes.push("knife")
@@ -64,32 +101,46 @@ app.get("/api/v1/getInventory", function(req, res){
 
     if(req.query.username == undefined) return res.end(req.query.callback + "(" + JSON.stringify({success: false, reason: "username not defined"}, null, 3) + ")");
 
-    var username;
+    var currency = req.query.currency == undefined ? "USD" : req.query.currency.toUpperCase();
 
     if(Number(req.query.username)){
-        username = req.query.username
-
-        getInventory(req.query.username, function(response){
+        getInventory(req.query.username, currency, function(response){
             res.end(req.query.callback + "(" + JSON.stringify(response) + ")")
         });
     } else {
-        request('http://steamcommunity.com/id/' + req.query.username, function (error, response, body) {
-            if (!error && response.statusCode == 200) {
-                try {
-                    username = cheerio.load(body)("body > div.responsive_page_frame > div > div.responsive_page_nonlegacy_content > script").text().split("steamid")[1].split("\"")[2]
-                } catch(e) {
-                    return res.end(req.query.callback + "(" + JSON.stringify({success: false, reason: JSON.stringify(e)}, null, 3) + ")");
-                }
+        resolveUsername(req.query.username, function(err, sid){
+            if(err) res.end(req.query.callback + "(" + JSON.stringify({success: false, reason: "cannot resolve username"}) + ")")
 
-                getInventory(username, function(response){
-                    res.end(req.query.callback + "(" + JSON.stringify(response) + ")")
-                });
-            }
+            getInventory(sid, currency, function(response){
+                res.end(req.query.callback + "(" + JSON.stringify(response) + ")")
+            });
         });
     }
 });
 
-function getInventory(username, callback){
+function resolveUsername(username, callback){
+    request('http://steamcommunity.com/id/' + username, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            try {
+                return callback(null, cheerio.load(body)("body > div.responsive_page_frame > div > div.responsive_page_nonlegacy_content > script").text().split("steamid")[1].split("\"")[2]);
+            } catch(e) {
+                // fall back to method 2
+            }
+        }
+
+        request('http://steamid.co/ajax/steamid.php?ddd=' + username, function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                try {
+                    return callback(null, JSON.parse(body).steamID64);
+                } catch(e) {
+                    return callback(true, null);
+                }
+            }
+        });
+    });
+}
+
+function getInventory(username, currency, callback){
     if(!offers) return callback({success: false, reason: "bot not logged in"})
 
     offers.loadPartnerInventory({
@@ -97,16 +148,24 @@ function getInventory(username, callback){
         contextId: 2,
         partnerSteamId: username
     }, function(err, inventory) {
+        // I've only ever seen the value of 'err' be '{}'
+        // Great job Steam
         if(err) return callback({success: false, reason: JSON.stringify(err)})
 
-        var items = [], total = 0;
+        // Populate items list
+        var items = [];
         for(var i = 0; i < inventory.length; i++){
             var item = createItemObject(inventory[i]);
             items.push(item);
-            total += item.price;
         }
 
-        callback({success: true, items: items, total: total})
+        // Convert currencies, prefix is added client side
+        var total = 0;
+        for(var i = 0; i < items.length; i++){
+            total += Number(items[i].price = (items[i].price *= conversion[currency]).toFixed(2))
+        }
+
+        callback({success: true, items: items, total: Number(total).toFixed(2)})
     })
 
     /*steamapi.getPlayerItems({
@@ -123,6 +182,30 @@ function getInventory(username, callback){
             res.end(JSON.stringify(data, null, 3));
         }
     });*/
+}
+
+function getItemPrice(curr, appid, hash_name, name, exterior){
+    if(!hash_name || !name || !exterior) return;
+
+    request("http://steamcommunity.com/market/priceoverview/?currency=" + curr + "&appid=" + appid + "&market_hash_name=" + encodeURI(hash_name), function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            var data = JSON.parse(body);
+
+            if(data.success){
+                prices[name][wears.indexOf(exterior)]['price'] = data.median_price ? Number(data.median_price.split(";")[1]) : data.lowest_price ? Number(data.lowest_price.split(";")[1]) : "N/A"
+                prices[name][wears.indexOf(exterior)]['cache'] = Date.now();
+            }
+        }
+    });
+}
+
+function updateConversion(){
+    request("http://api.fixer.io/latest?base=USD", function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            conversion = JSON.parse(body).rates;
+            conversion["USD"] = 1;
+        }
+    });
 }
 
 function loginBot(details){
