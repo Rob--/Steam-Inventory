@@ -4,11 +4,11 @@ var app = angular.module('inventoryLoader', []);
 
 app.controller('inventoryCtrl', ['$scope', '$http', '$sce', function($scope, $http, $sce) {
     $scope.currencies = [
-        ['USD', '$dollar;'],
+        ['USD', '&dollar;'],
         ['GBP', '&pound;'],
         ['EUR', '&euro;'],
         ['AUD', '&dollar;'],
-        ['BGN', '$#1083;'],
+        ['BGN', '&#1083;'],
         ['BRL', 'R&dollar;'],
         ['CAD', '&dollar;'],
         ['CHF', 'CHF'],
@@ -22,7 +22,7 @@ app.controller('inventoryCtrl', ['$scope', '$http', '$sce', function($scope, $ht
         ['ILS', '&#8362;'],
         ['INR', '&#8377;'],
         ['JPY', '&#165;'],
-        ['KRW', '$#8361;'],
+        ['KRW', '&#8361;'],
         ['MXN', '&dollar;'],
         ['MYR', 'RM'],
         ['NOK', 'kr'],
@@ -68,6 +68,7 @@ app.controller('inventoryCtrl', ['$scope', '$http', '$sce', function($scope, $ht
     $scope.updateCurrency = function(currency){
         $scope.currency.abbr = $scope.currencies[currency - 1][0];
         $scope.currency.prefix = $scope.currencies[currency - 1][1];
+        $scope.loadInventory();
     }
 }])
 /* http://stackoverflow.com/a/25842874/2536231 */
