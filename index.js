@@ -29,7 +29,7 @@ fs.readFile('config.json', 'utf8', function (err, data) {
  */
 var prices = {};
 
-var wears = ["Factory New", "Minimal Wear", "Field-Tested", "Well-Worn", "Battle-Scarred"];
+var wears = ["Vanilla", "Factory New", "Minimal Wear", "Field-Tested", "Well-Worn", "Battle-Scarred"];
 var conversion = {};
 
 updateConversion();
@@ -61,16 +61,24 @@ function createItemObject(item){
         if(item.tags[j].category == "Exterior"  ) data.exterior     = item.tags[j].name;
     }
 
+    if(data.type.toLowerCase().indexOf("sticker")       > -1
+    || data.type.toLowerCase().indexOf("tool")          > -1
+    || data.type.toLowerCase().indexOf("case")          > -1
+    || data.type.toLowerCase().indexOf("key")           > -1
+    || data.exterior.toLowerCase().indexOf("painted")   > -1)
+        data.exterior = "Vanilla";
+
     if(!prices[data.name]){
         prices[data.name] = {
             0: {},
             1: {},
             2: {},
             3: {},
-            4: {}
+            4: {},
+            5: {}
         };
     }
-
+    
     if(prices[data.name][wears.indexOf(data.exterior)].price == undefined){
         getItemPrice(1, 730, data.hash_name, data.name, data.exterior);
         data.price = "0.00";
@@ -164,6 +172,8 @@ function getInventory(username, currency, callback){
         for(var i = 0; i < items.length; i++){
             total += Number(items[i].price = (items[i].price *= conversion[currency]).toFixed(2))
         }
+
+        items.sort(function(a,b) { return parseFloat(b.price) - parseFloat(a.price) } );
 
         callback({success: true, items: items, total: Number(total).toFixed(2)})
     })
