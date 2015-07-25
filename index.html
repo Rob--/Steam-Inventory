@@ -81,7 +81,7 @@
                         <li><a ng-click="updateCurrency(31)">TRY</a></li>
                         <li><a ng-click="updateCurrency(32)">ZAR</a></li>
                     </ul>
-                    <a class="btn dropdown-button" href="#!" data-activates="currency-dropdown"><span ng-bind-html="currency.abbr"></span><i class="mdi-navigation-arrow-drop-down right"></i></a>
+                    <a class="btn dropdown-button" href="#!" data-activates="currency-dropdown">{{currency.abbr}}</span><i class="mdi-navigation-arrow-drop-down right"></i></a>
                 </div>
                 <div class="col s4">
                     <input ng-model="transparent" type="checkbox" class="filled-in" id="filled-in-box" checked="checked" />
@@ -90,7 +90,7 @@
             </div>
             <hr>
             <div ng-if="!loading && !error && data.items.length" ng-style="{'color': transparent ? '#fff' : '#9e9e9e'}" class="row info-area animation">
-                <p>Total: <span ng-bind-html="currency.prefix"></span>{{data.total}} / {{data.items.length}} skins</p>
+                <p>Total: <span ng-bind-html="currency.prefix | currencyFilter"></span>{{data.total}} / {{data.items.length}} skins</p>
             </div>
             <hr ng-if="!loading && !error && data.items.length">
             <div class="row">
