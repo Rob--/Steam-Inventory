@@ -53,7 +53,9 @@ app.controller('inventoryCtrl', ['$scope', '$http', '$sce', function($scope, $ht
                 var item = $scope.data.items[Number($(this).attr('id').replace("item_", ""))];
 
                 var data = "<p style='font-family:Roboto; margin:5px'>";
-                data += item.hash_name + "</p><hr>";
+                data += item.hash_name;
+                data += item.nametag ? "<br>" + item.nametag : "";
+                data += "</p><hr>";
 
                 // this will throw an error if it's undefined
                 try{
