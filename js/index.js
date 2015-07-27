@@ -54,10 +54,8 @@ app.controller('inventoryCtrl', ['$scope', '$http', '$sce', function($scope, $ht
             console.log($(this))
             console.log($(this).attr("id"))
             var data = "<p style='font-family:Roboto; margin:5px'>";
-            data += item.hash_name;
-            data += "</p><hr><p style='style='font-family:Roboto'>Float:</p> ";
-            data += String(item.schema.float);
-            data += "<hr>";
+            data += item.hash_name + "</p><hr>";
+            if(item.schema.float) data += "<p style='style='font-family:Roboto'>Float:</p> " + String(item.schema.float) + "<hr>";
             for(var i = 0; i < item.stickers.images.length; i++){
                 data += "<img width='70px' height='50px' src='" + item.stickers.images[i] + "'>";
             }
@@ -80,18 +78,6 @@ app.controller('inventoryCtrl', ['$scope', '$http', '$sce', function($scope, $ht
         }
     }]
 )
-/*.directive('repeatDirective', function() {
-  return function(scope) { if(scope.$last) scope.$emit('initialiseTooltips'); };
-})*/
 .directive('repeatDirective', function ($timeout) {
-    return {
-        restrict: 'A',
-        link: function (scope, element, attr) {
-            if (scope.$last === true) {
-                $timeout(function () {
-                    scope.$emit('initialiseTooltips');
-                });
-            }
-        }
-    }
+    return { restrict: 'A', link: function (scope, element, attr) { if(scope.$last) $timeout(function () { scope.$emit('initialiseTooltips'); }); } }
 });
