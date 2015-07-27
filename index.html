@@ -82,126 +82,131 @@
 
                     <script>
                         //$('.tooltipped').tooltip({delay: 1000});
-                        customTooltip($(".tooltipped"))
+                        //customTooltip($(".tooltipped"))
+                        customTooltip(jQuery)
 
-                        function customTooltip(elements) {
-                            var c = null,
-                                d = !1,
-                                e = null,
-                                f = 5,
-                                g = {
-                                    delay: 350
-                                };
-                            return b = a.extend(g, b), a(".material-tooltip").remove(), this.each(function() {
-                                var g = a(this),
-                                    h = a("<span></span>").html(g.attr("data-tooltip")),
-                                    i = a("<div></div>");
-                                i.addClass("material-tooltip").append(h), i.appendTo(a("body"));
-                                var j = a("<div></div>").addClass("backdrop");
-                                j.appendTo(i), j.css({
-                                    top: 0,
-                                    left: 0
-                                }), a(this).off("mouseenter mouseleave"), a(this).on({
-                                    mouseenter: function() {
-                                        var a = g.data("delay");
-                                        a = void 0 === a || "" === a ? b.delay : a, c = 0, e = setInterval(function() {
-                                            if (c += 10, c >= a && d === !1) {
-                                                d = !0, i.css({
-                                                    display: "block",
-                                                    left: "0px",
-                                                    top: "0px"
-                                                }), i.children("span").html(g.attr("data-tooltip"));
-                                                var b = g.outerWidth(),
-                                                    e = g.outerHeight(),
-                                                    h = g.attr("data-position"),
-                                                    k = i.outerHeight(),
-                                                    l = i.outerWidth(),
-                                                    m = "0px",
-                                                    n = "0px",
-                                                    o = 8;
-                                                "top" === h ? (i.css({
-                                                    top: g.offset().top - k - f,
-                                                    left: g.offset().left + b / 2 - l / 2
-                                                }), m = "-10px", j.css({
-                                                    borderRadius: "14px 14px 0 0",
-                                                    transformOrigin: "50% 90%",
-                                                    marginTop: k,
-                                                    marginLeft: l / 2 - j.width() / 2
-                                                })) : "left" === h ? (i.css({
-                                                    top: g.offset().top + e / 2 - k / 2,
-                                                    left: g.offset().left - l - f
-                                                }), n = "-10px", j.css({
-                                                    width: "14px",
-                                                    height: "14px",
-                                                    borderRadius: "14px 0 0 14px",
-                                                    transformOrigin: "95% 50%",
-                                                    marginTop: k / 2,
-                                                    marginLeft: l
-                                                })) : "right" === h ? (i.css({
-                                                    top: g.offset().top + e / 2 - k / 2,
-                                                    left: g.offset().left + b + f
-                                                }), n = "+10px", j.css({
-                                                    width: "14px",
-                                                    height: "14px",
-                                                    borderRadius: "0 14px 14px 0",
-                                                    transformOrigin: "5% 50%",
-                                                    marginTop: k / 2,
-                                                    marginLeft: "0px"
-                                                })) : (i.css({
-                                                    top: g.offset().top + g.outerHeight() + f,
-                                                    left: g.offset().left + b / 2 - l / 2
-                                                }), m = "+10px", j.css({
-                                                    marginLeft: l / 2 - j.width() / 2
-                                                })), o = l / 8, 8 > o && (o = 8), ("right" === h || "left" === h) && (o = l / 10, 6 > o && (o = 6)), i.velocity({
-                                                    opacity: 1,
-                                                    marginTop: m,
-                                                    marginLeft: n
-                                                }, {
-                                                    duration: 350,
-                                                    queue: !1
-                                                }), j.css({
-                                                    display: "block"
-                                                }).velocity({
-                                                    opacity: 1
-                                                }, {
-                                                    duration: 55,
-                                                    delay: 0,
-                                                    queue: !1
-                                                }).velocity({
-                                                    scale: o
-                                                }, {
-                                                    duration: 300,
-                                                    delay: 0,
-                                                    queue: !1,
-                                                    easing: "easeInOutQuad"
-                                                })
-                                            }
-                                        }, 10)
-                                    },
-                                    mouseleave: function() {
-                                        clearInterval(e), c = 0, i.velocity({
-                                            opacity: 0,
-                                            marginTop: 0,
-                                            marginLeft: 0
-                                        }, {
-                                            duration: 225,
-                                            queue: !1,
-                                            delay: 275
-                                        }), j.velocity({
-                                            opacity: 0,
-                                            scale: 1
-                                        }, {
-                                            duration: 225,
-                                            delay: 275,
-                                            queue: !1,
-                                            complete: function() {
-                                                j.css("display", "none"), i.css("display", "none"), d = !1
-                                            }
-                                        })
-                                    }
-                                })
+                        function customTooltip(a) {
+    a.fn.tooltip = function(b) {
+        var c = null,
+            d = !1,
+            e = null,
+            f = 5,
+            g = {
+                delay: 350
+            };
+        return b = a.extend(g, b), a(".material-tooltip").remove(), this.each(function() {
+            var g = a(this),
+                h = a("<span></span>").html(g.attr("data-tooltip")),
+                i = a("<div></div>");
+            i.addClass("material-tooltip").append(h), i.appendTo(a("body"));
+            var j = a("<div></div>").addClass("backdrop");
+            j.appendTo(i), j.css({
+                top: 0,
+                left: 0
+            }), a(this).off("mouseenter mouseleave"), a(this).on({
+                mouseenter: function() {
+                    var a = g.data("delay");
+                    a = void 0 === a || "" === a ? b.delay : a, c = 0, e = setInterval(function() {
+                        if (c += 10, c >= a && d === !1) {
+                            d = !0, i.css({
+                                display: "block",
+                                left: "0px",
+                                top: "0px"
+                            }), i.children("span").html(g.attr("data-tooltip"));
+                            var b = g.outerWidth(),
+                                e = g.outerHeight(),
+                                h = g.attr("data-position"),
+                                k = i.outerHeight(),
+                                l = i.outerWidth(),
+                                m = "0px",
+                                n = "0px",
+                                o = 8;
+                            "top" === h ? (i.css({
+                                top: g.offset().top - k - f,
+                                left: g.offset().left + b / 2 - l / 2
+                            }), m = "-10px", j.css({
+                                borderRadius: "14px 14px 0 0",
+                                transformOrigin: "50% 90%",
+                                marginTop: k,
+                                marginLeft: l / 2 - j.width() / 2
+                            })) : "left" === h ? (i.css({
+                                top: g.offset().top + e / 2 - k / 2,
+                                left: g.offset().left - l - f
+                            }), n = "-10px", j.css({
+                                width: "14px",
+                                height: "14px",
+                                borderRadius: "14px 0 0 14px",
+                                transformOrigin: "95% 50%",
+                                marginTop: k / 2,
+                                marginLeft: l
+                            })) : "right" === h ? (i.css({
+                                top: g.offset().top + e / 2 - k / 2,
+                                left: g.offset().left + b + f
+                            }), n = "+10px", j.css({
+                                width: "14px",
+                                height: "14px",
+                                borderRadius: "0 14px 14px 0",
+                                transformOrigin: "5% 50%",
+                                marginTop: k / 2,
+                                marginLeft: "0px"
+                            })) : (i.css({
+                                top: g.offset().top + g.outerHeight() + f,
+                                left: g.offset().left + b / 2 - l / 2
+                            }), m = "+10px", j.css({
+                                marginLeft: l / 2 - j.width() / 2
+                            })), o = l / 8, 8 > o && (o = 8), ("right" === h || "left" === h) && (o = l / 10, 6 > o && (o = 6)), i.velocity({
+                                opacity: 1,
+                                marginTop: m,
+                                marginLeft: n
+                            }, {
+                                duration: 350,
+                                queue: !1
+                            }), j.css({
+                                display: "block"
+                            }).velocity({
+                                opacity: 1
+                            }, {
+                                duration: 55,
+                                delay: 0,
+                                queue: !1
+                            }).velocity({
+                                scale: o
+                            }, {
+                                duration: 300,
+                                delay: 0,
+                                queue: !1,
+                                easing: "easeInOutQuad"
                             })
                         }
+                    }, 10)
+                },
+                mouseleave: function() {
+                    clearInterval(e), c = 0, i.velocity({
+                        opacity: 0,
+                        marginTop: 0,
+                        marginLeft: 0
+                    }, {
+                        duration: 225,
+                        queue: !1,
+                        delay: 275
+                    }), j.velocity({
+                        opacity: 0,
+                        scale: 1
+                    }, {
+                        duration: 225,
+                        delay: 275,
+                        queue: !1,
+                        complete: function() {
+                            j.css("display", "none"), i.css("display", "none"), d = !1
+                        }
+                    })
+                }
+            })
+        })
+    }, a(document).ready(function() {
+        a(".tooltipped").tooltip()
+    })
+}
                     </script>
                 </div>
             </div>
