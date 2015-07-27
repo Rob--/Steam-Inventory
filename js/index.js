@@ -45,6 +45,7 @@ app.controller('inventoryCtrl', ['$scope', '$http', '$sce', function($scope, $ht
     $scope.currency = {prefix: '$', abbr: 'USD'}
 
     $scope.loadInventory = function(){
+        if(!$scope.username) return;
         $scope.loading = true;
         $scope.error = false;
         $scope.data = {items: [], total: 0};
