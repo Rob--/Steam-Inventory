@@ -48,7 +48,8 @@
                 </div>
                 <div class="col s4 settings-dropdown">
                     <ul id="currency-dropdown" class="dropdown-content">
-                        <li><a ng-click="updateCurrency(1)">USD</a></li>
+                        <li ng-repeat="currency in currencies"><a ng-click="updateCurrency($index)">{{currency[0]}}{{$index}}</a></li>
+                    <!--    <li><a ng-click="updateCurrency(1)">USD</a></li>
                         <li><a ng-click="updateCurrency(2)">GBP</a></li>
                         <li><a ng-click="updateCurrency(3)">EUR</a></li>
                         <li><a ng-click="updateCurrency(4)">AUD</a></li>
@@ -79,7 +80,7 @@
                         <li><a ng-click="updateCurrency(29)">SGD</a></li>
                         <li><a ng-click="updateCurrency(30)">THB</a></li>
                         <li><a ng-click="updateCurrency(31)">TRY</a></li>
-                        <li><a ng-click="updateCurrency(32)">ZAR</a></li>
+                        <li><a ng-click="updateCurrency(32)">ZAR</a></li>   -->
                     </ul>
                     <a class="btn dropdown-button" href="#!" data-activates="currency-dropdown">{{currency.abbr}}</span><i class="mdi-navigation-arrow-drop-down right"></i></a>
                 </div>
