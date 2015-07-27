@@ -76,9 +76,17 @@
                 <br ng-if="error">
                 <div class="col s{{columnSize}} animation" ng-repeat="item in data.items track by $index">
                     <div ng-class="item.classes" class="card">
-                        <div class="card-image">
+                        <div class="card-image" data-toggle="tooltip_$index">
                             <img class="item" src="https://steamcommunity-a.akamaihd.net/economy/image/{{item.icon_url}}/{{columnSize == 1 ? '85fx65f' : columnSize == 2 ? '115fx88f' : '163fx126f'}}">
                             <p ng-style="{'font-family': columnSize == 1 ? 'Roboto' : 'Segoe UI','box-shadow': '0px 0px 1px 0px #' + item.rarity.colour, 'background-color': '#' + item.rarity.colour, 'font-size': columnSize == 1 ? '1rem' : columnSize == 2 ? '1.5rem' : '2rem'}" class="price"><span ng-bind-html="item.price | currencyFilter:currency.prefix"></span></p>
+                        </div>
+                    </div>
+
+                    <!-- Generated markup by the plugin -->
+                    <div class="tooltip top" role="tooltip_$index">
+                        <div class="tooltip-arrow"></div>
+                        <div class="tooltip-inner">
+                            Some tooltip text!
                         </div>
                     </div>
                 </div>
