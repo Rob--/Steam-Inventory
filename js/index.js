@@ -56,7 +56,11 @@ app.controller('inventoryCtrl', ['$scope', '$http', '$sce', function($scope, $ht
                 data += item.hash_name + "</p><hr>";
 
                 // this will throw an error if it's undefined
-                if(typeof(item.schema.float) !== undefined) data += "Float: " + String(item.schema.float) + "<hr>";
+                try{
+                    if(typeof(item.schema.float) !== undefined) data += "Float: " + String(item.schema.float) + "<hr>";
+                } catch(e) {
+                    // do nothing
+                }
                 for(var i = 0; i < item.stickers.images.length; i++){
                     data += "<img width='70px' height='50px' src='" + item.stickers.images[i] + "'>";
                 }
