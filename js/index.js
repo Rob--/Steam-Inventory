@@ -56,13 +56,13 @@ app.controller('inventoryCtrl', ['$scope', '$http', '$sce', function($scope, $ht
                 data += item.hash_name + "</p><hr>";
 
                 // this will throw an error if it's undefined
-                if(typeof(item.schema.float) !== undefined) data += "<p style='style='font-family:Roboto'>Float:</p> " + String(item.schema.float) + "<hr>";
+                if(typeof(item.schema.float) !== undefined) data += "Float: " + String(item.schema.float) + "<hr>";
                 for(var i = 0; i < item.stickers.images.length; i++){
                     data += "<img width='70px' height='50px' src='" + item.stickers.images[i] + "'>";
                 }
-                data += "<hr><a class='waves-effect waves-light btn' href='" + item.inspect + "'>Inspect</a><hr>";
-                data += item.weapon + "(" + item.type + "), " + item.rarity.rarity + "<hr>";
-                data += item.collection;
+                data += item.stickers.images.length > 0 ? "<hr>" : ""
+                data += item.weapon + " (" + item.type + "), " + item.rarity.rarity;
+                data += item.collection ? "<hr>" + item.collection : "";
 
                 $(this).attr("data-tooltip", data);
             } catch(e) {
