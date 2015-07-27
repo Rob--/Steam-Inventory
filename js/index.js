@@ -49,21 +49,25 @@ app.controller('inventoryCtrl', ['$scope', '$http', '$sce', function($scope, $ht
 
             //"<p style='font-family:Roboto; margin:5px'>AWP | Dragon Lore (Field-Tested)</p><hr>Float: 0.03242424<hr><img width='70px' height='50px' src='https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/eslkatowice2015/fnatic_holo.958b36604c0485b89dfabe71294f04b25ada7bb4.png'><img width='70px' height='50px' src='https://steamcdn-a.akamaihd.net/apps/730/icons/econ/stickers/stickers2/crown_foil.77c38fe60426ee084fd5c8fec0c680c342e05743.png'><hr><a class='waves-effect waves-light btn' style='background-color:#fff'>Inspect</a><hr>Karambit (Knife), Covert<hr>The Vanguard Collection"
 
-            var item = $scope.data.items[Number($(this).attr('id').replace("item_", ""))];
-            console.log(item)
-            console.log($(this))
-            console.log($(this).attr("id"))
-            var data = "<p style='font-family:Roboto; margin:5px'>";
-            data += item.hash_name + "</p><hr>";
-            if(typeof(item.schema.float) !== undefined) data += "<p style='style='font-family:Roboto'>Float:</p> " + String(item.schema.float) + "<hr>";
-            for(var i = 0; i < item.stickers.images.length; i++){
-                data += "<img width='70px' height='50px' src='" + item.stickers.images[i] + "'>";
-            }
-            data += "<hr><a class='waves-effect waves-light btn' href='" + item.inspect + "'>Inspect</a><hr>";
-            data += item.weapon + "(" + item.type + "), " + item.rarity.rarity + "<hr>";
-            data += item.collection;
+            try{
+                var item = $scope.data.items[Number($(this).attr('id').replace("item_", ""))];
 
-            $(this).attr("data-tooltip", data);
+                var data = "<p style='font-family:Roboto; margin:5px'>";
+                data += item.hash_name + "</p><hr>";
+
+                // this will throw an error if it's undefined
+                if(typeof(item.schema.float) !== undefined) data += "<p style='style='font-family:Roboto'>Float:</p> " + String(item.schema.float) + "<hr>";
+                for(var i = 0; i < item.stickers.images.length; i++){
+                    data += "<img width='70px' height='50px' src='" + item.stickers.images[i] + "'>";
+                }
+                data += "<hr><a class='waves-effect waves-light btn' href='" + item.inspect + "'>Inspect</a><hr>";
+                data += item.weapon + "(" + item.type + "), " + item.rarity.rarity + "<hr>";
+                data += item.collection;
+
+                $(this).attr("data-tooltip", data);
+            } catch(e) {
+                // do nothing
+            }
 
         });
 
