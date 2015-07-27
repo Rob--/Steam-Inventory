@@ -55,7 +55,7 @@ app.controller('inventoryCtrl', ['$scope', '$http', '$sce', function($scope, $ht
             console.log($(this).attr("id"))
             var data = "<p style='font-family:Roboto; margin:5px'>";
             data += item.hash_name + "</p><hr>";
-            if(item.schema.float) data += "<p style='style='font-family:Roboto'>Float:</p> " + String(item.schema.float) + "<hr>";
+            if(typeof(item.schema.float) !== undefined) data += "<p style='style='font-family:Roboto'>Float:</p> " + String(item.schema.float) + "<hr>";
             for(var i = 0; i < item.stickers.images.length; i++){
                 data += "<img width='70px' height='50px' src='" + item.stickers.images[i] + "'>";
             }
