@@ -48,7 +48,7 @@
                 </div>
                 <div class="col s4 settings-dropdown">
                     <ul id="currency-dropdown" class="dropdown-content">
-                        <li ng-repeat="currency in currencies"><a ng-click="updateCurrency($index)">{{currency[0]}}</a></li>
+                        <li ng-repeat="currency in currencies"><a ng-click="updateCurrency($index + 1)">{{currency[0]}}</a></li>
                     </ul>
                     <a class="btn dropdown-button" href="#!" data-activates="currency-dropdown">{{currency.abbr}}</span><i class="mdi-navigation-arrow-drop-down right"></i></a>
                 </div>

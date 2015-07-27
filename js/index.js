@@ -67,8 +67,8 @@ app.controller('inventoryCtrl', ['$scope', '$http', '$sce', function($scope, $ht
     };
 
     $scope.updateCurrency = function(currency){
-        $scope.currency.abbr = $scope.currencies[currency - 1][0];
-        $scope.currency.prefix = $scope.currencies[currency - 1][1];
+        $scope.currency.abbr = $scope.currencies[currency][0];
+        $scope.currency.prefix = $scope.currencies[currency][1];
         $scope.loadInventory();
     }
 }])
