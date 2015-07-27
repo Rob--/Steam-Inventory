@@ -80,8 +80,8 @@
                         </div>
                     </div>
 
-                    <script ng-if="$last">
-                    alert("hey")
+                    <script ng-if="$last && data.items.length != 0">
+                    alert("hey");
                         $('.tooltipped').tooltip({delay: 1000});
                     </script>
                 </div>
