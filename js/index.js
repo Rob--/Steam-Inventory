@@ -52,6 +52,7 @@ app.controller('inventoryCtrl', ['$scope', '$http', '$sce', function($scope, $ht
             var item = $scope.data.items[Number($(this).attr('id').replace("item_", ""))];
             console.log(item)
             console.log($(this).attr("id"))
+            console.log($(this).attr("ng-attr-id"))
             var data = "<p style='font-family:Roboto; margin:5px'>";
             data += item.hash_name;
             data += "</p><hr><p style='style='font-family:Roboto'>Float:</p> ";
