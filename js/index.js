@@ -4,38 +4,10 @@ var app = angular.module('inventoryLoader', []);
 
 app.controller('inventoryCtrl', ['$scope', '$http', '$sce', function($scope, $http, $sce) {
     $scope.currencies = [
-        ['USD', '&dollar;'],
-        ['GBP', '&pound;'],
-        ['EUR', '&euro;'],
-        ['AUD', '&dollar;'],
-        ['BGN', '&#1083;'],
-        ['BRL', 'R&dollar;'],
-        ['CAD', '&dollar;'],
-        ['CHF', 'CHF'],
-        ['CNY', '&#165;'],
-        ['CZK', 'K&#269;'],
-        ['DKK', 'kr'],
-        ['HKD', '&dollar;'],
-        ['HRK', 'kn'],
-        ['HUF', 'Ft'],
-        ['IDR', 'Rp'],
-        ['ILS', '&#8362;'],
-        ['INR', '&#8377;'],
-        ['JPY', '&#165;'],
-        ['KRW', '&#8361;'],
-        ['MXN', '&dollar;'],
-        ['MYR', 'RM'],
-        ['NOK', 'kr'],
-        ['NZD', '&dollar;'],
-        ['PHP', '&#8369;'],
-        ['PLN', 'z&#322;'],
-        ['RON', 'lei'],
-        ['RUB', 'ру&#1073;'],
-        ['SEK', 'kr'],
-        ['SGD', '&dollar;'],
-        ['THB', '&#3647;'],
-        ['TRY', '&#8378;'],
-        ['ZAR', 'R']
+        ['USD', '&dollar;'], ['GBP', '&pound;'], ['EUR', '&euro;'], ['AUD', '&dollar;'], ['BGN', '&#1083;'], ['BRL', 'R&dollar;'], ['CAD', '&dollar;'],
+        ['CHF', 'CHF'], ['CNY', '&#165;'], ['CZK', 'K&#269;'], ['DKK', 'kr'], ['HKD', '&dollar;'], ['HRK', 'kn'], ['HUF', 'Ft'], ['IDR', 'Rp'], ['ILS', '&#8362;'], ['INR', '&#8377;'],
+        ['JPY', '&#165;'], ['KRW', '&#8361;'], ['MXN', '&dollar;'], ['MYR', 'RM'], ['NOK', 'kr'], ['NZD', '&dollar;'],
+        ['PHP', '&#8369;'], ['PLN', 'z&#322;'], ['RON', 'lei'], ['RUB', 'ру&#1073;'], ['SEK', 'kr'], ['SGD', '&dollar;'], ['THB', '&#3647;'], ['TRY', '&#8378;'], ['ZAR', 'R']
     ];
 
     $scope.data = {items: [], total: 0}
@@ -64,13 +36,17 @@ app.controller('inventoryCtrl', ['$scope', '$http', '$sce', function($scope, $ht
             $scope.error = true;
             console.log("Error fetching inventory.")
         });
-    };
+    };$('.tooltipped').tooltip({delay: 1000});
 
     $scope.updateCurrency = function(currency){
         $scope.currency.abbr = $scope.currencies[currency][0];
         $scope.currency.prefix = $scope.currencies[currency][1];
         $scope.loadInventory();
     }
+
+    $scope.$on('initialiseTooltips', function(event){
+        alert("testing final")
+    });
 }])
 /* http://stackoverflow.com/a/25842874/2536231 */
 .filter('currencyFilter', ['$filter','$sce',
@@ -79,4 +55,8 @@ app.controller('inventoryCtrl', ['$scope', '$http', '$sce', function($scope, $ht
             return $sce.trustAsHtml(curr + " " + input);
         }
     }]
-);
+).directive('repeatDirective', function() {
+  return function(scope) {
+    if(scope.$last) scope.$emit('initialiseTooltips');
+  };
+})

@@ -72,18 +72,13 @@
                     <p>This error could've occured because<br>Steam Community is down<br>or<br><i>{{username}}</i> could have their inventory set to private
                 </div>
                 <br ng-if="error">
-                <div class="col s{{columnSize}} animation" ng-repeat="item in data.items track by $index">
+                <div class="col s{{columnSize}} animation" ng-repeat="item in data.items track by $index" repeat-directive>
                     <div ng-class="item.classes" class="card">
                         <div class="card-image tooltipped" data-position="bottom" data-delay="50" data-tooltip="<h1>test</h1>">
                             <img class="item" src="https://steamcommunity-a.akamaihd.net/economy/image/{{item.icon_url}}/{{columnSize == 1 ? '85fx65f' : columnSize == 2 ? '115fx88f' : '163fx126f'}}">
                             <p ng-style="{'font-family': columnSize == 1 ? 'Roboto' : 'Segoe UI','box-shadow': '0px 0px 1px 0px #' + item.rarity.colour, 'background-color': '#' + item.rarity.colour, 'font-size': columnSize == 1 ? '1rem' : columnSize == 2 ? '1.5rem' : '2rem'}" class="price"><span ng-bind-html="item.price | currencyFilter:currency.prefix"></span></p>
                         </div>
                     </div>
-
-                    <script ng-if="$last && data.items.length != 0">
-                    alert("hey");
-                        $('.tooltipped').tooltip({delay: 1000});
-                    </script>
                 </div>
             </div>
         </div>
