@@ -54,7 +54,7 @@ app.controller('inventoryCtrl', ['$scope', '$http', '$sce', function($scope, $ht
 
                 var data = "<p style='font-family:Roboto; margin:5px'>";
                 data += item.hash_name;
-                data += item.nametag ? "<br>" + item.nametag : "";
+                data += item.nametag ? "<br>'" + item.nametag + "'": "";
                 data += "</p><hr>";
 
                 // this will throw an error if it's undefined
