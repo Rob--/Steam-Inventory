@@ -21,7 +21,7 @@ app.controller('inventoryCtrl', ['$scope', '$http', '$sce', function($scope, $ht
         $scope.loading = true;
         $scope.error = false;
         $scope.data = {items: [], total: 0};
-        $http.jsonp("http://2.123.0.40:8080/api/v1/getInventory?currency=" + $scope.currency.abbr + "&username=" + encodeURIComponent($scope.username) + "&callback=JSON_CALLBACK")
+        $http.jsonp("https://steamio-server.herokuapp.com/api/v1/getInventory?currency=" + $scope.currency.abbr + "&username=" + encodeURIComponent($scope.username) + "&callback=JSON_CALLBACK")
         .success(function(data){
             if(data.success){
                 $scope.data = data;
